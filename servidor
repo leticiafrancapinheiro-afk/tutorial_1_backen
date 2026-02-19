@@ -1,0 +1,31 @@
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+# Rota /info
+@app.route('/info')
+def info():
+    return "<h1>Marisa - Sua Turma Aqui</h1>"
+
+# Rota média
+@app.route('/media/<int:n1>/<int:n2>')
+def media(n1, n2):
+    m = (n1 + n2) / 2
+    if m >= 6:
+        resultado = "Aprovado"
+    else:
+        resultado = "Reprovado"
+    return f"Media: {m} - {resultado}"
+
+# Rota API sensor
+@app.route('/api/sensor')
+def sensor():
+    dados = {
+        "sensor": "Sensor de Umidade",
+        "valor": 67,
+        "unidade": "%"
+    }
+    return jsonify(dados)
+
+if __name__ == '__main__':
+    app.run(debug=True)
